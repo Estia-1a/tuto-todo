@@ -2,7 +2,7 @@ import { RouterContext } from "https://deno.land/x/oak@v6.5.0/mod.ts";
 
 import client from "../bd-mysql/database.ts";
 
-// Route handler to get all todo (GET)
+// Route handler to get all todos (GET)
 export const getTodos = async (ctx: RouterContext) => {
   try {
     const result = await client.query(`SELECT * FROM todos`);
@@ -26,7 +26,7 @@ export const getTodo = async (ctx: RouterContext) => {
         );
         if (result.length > 0) {
           const todo = result[0];
-          ctx.response.status = 200;
+          ctx.response.status = 201;
           ctx.response.body = {
             success: true,
             data: todo,
@@ -83,7 +83,7 @@ export const addTodo = async (ctx: RouterContext) => {
     ctx.response.body = {
       success: true,
       data: newTodo,
-      message: "202:Todo added",
+      message: "Todo added",
     };
   } catch (error) {
     console.error(error);

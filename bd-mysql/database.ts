@@ -1,5 +1,6 @@
 import { Client } from "https://deno.land/x/mysql@v2.11.0/mod.ts";
 
+// Database connection informations
 const client = await new Client().connect({
   hostname: "127.0.0.1",
   username: "root",
@@ -8,11 +9,11 @@ const client = await new Client().connect({
   password: "0000",
 });
 
-// Vérifier si la table existe
+// Check if the table exists
 const result = await client.execute(`SHOW TABLES LIKE 'todos'`);
 const tableExists = result.rows && result.rows.length > 0;
 
-// Si la table n'existe pas, créer la table et ajouter des valeurs d'essai
+// If the table does not exist, create the table and add test values
 if (!tableExists) {
   await client.transaction(async (conn) => {
     await conn.execute(`
