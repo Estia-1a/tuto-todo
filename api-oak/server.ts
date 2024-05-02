@@ -4,10 +4,10 @@ import router from "./routes.ts";
 
 const app = new Application();
 
-/* Enable CORS for all routes (cross-origin resource sharing) */
+// Enable CORS for all routes (cross-origin resource sharing)
 app.use(oakCors());
 
-/* Use the defined routes */
+// Use the defined routes
 app.use(router.routes());
 app.use(router.allowedMethods());
 
