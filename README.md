@@ -1,5 +1,11 @@
 # Todo List project with Deno and React
-This project is a Todo List testing application developed using [Deno](https://deno.com/) for the back-end part (API) and [React](https://react.dev/) for the front-end (user interface), connected to a database [MySQL](https://deno.land/x/mysql@v2.11.0).
+
+[![Deno](https://img.shields.io/badge/Deno%20-%20v1.43.1%20-%20%239acd32)](https://deno.com/)
+[![Oak](https://img.shields.io/badge/Oak%20-%20v6.5.0%20-%20%23cd5c5c)](https://deno.land/x/oak@v6.5.0)
+[![React](https://img.shields.io/badge/React%20-%20v18.3.1%20-%20%2300ced1)](https://react.dev/)
+[![MySQL](https://img.shields.io/badge/MySQL%20-%20v2.11.0%20-%20%23daa520)](https://deno.land/x/mysql@v2.11.0)
+
+This project is a Todo List testing application developed using [Deno](https://deno.com/) for the back-end part (API) and [React](https://react.dev/) for the front-end (user interface), connected to a database [MySQL](https://deno.land/x/mysql).
 
 ## Features
 - Add a task to the list
@@ -32,4 +38,4 @@ This project is a Todo List testing application developed using [Deno](https://d
 `npm install`
 8. Launch React :
 `npm start`
-9. Go to **http://localhost:3000** and **magiiic**.
+9. Go to **http://localhost:3000** and $\color{#D29922}\textsf{✨magiiic✨}$.
