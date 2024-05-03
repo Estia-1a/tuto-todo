@@ -2,7 +2,7 @@
 This project uses a [MySQL](https://deno.land/x/mysql@v2.11.0) database to store the todos.
 
 ## Structure
-La base de données **db_todos** n'est composée que d'une seule table **todos** dont la structure est la suivante :
+The **db_todos** database is made up of only one **todos** table whose structure is as follows :
 
 | id | todo |
 | --- | ----------- |
@@ -12,8 +12,8 @@ La base de données **db_todos** n'est composée que d'une seule table **todos**
 | ... | ... |
 
 ## Database configuration
-1. Creation of the **db_todos** database:
+1. Creation of the **db_todos** database :
 You can use MySQL Workbench locally if you want.
-2. Configuring Deno API:
+2. Configuring Deno API :
 In the **database.ts** file, configure connection information to your local or remote MySQL database.
 Then the scripts will create a todos table and add three todos examples.
