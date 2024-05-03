@@ -1,8 +1,9 @@
 # Database in MySQL
-This project uses a [MySQL](https://deno.land/x/mysql@v2.11.0) database to store the task list.
+This project uses a [MySQL](https://deno.land/x/mysql@v2.11.0) database to store the todos.
 
 ## Structure
-Table todos
+La base de données **db_todos** n'est composée que d'une seule table **todos** dont la structure est la suivante :
+
 | id | todo |
 | --- | ----------- |
 | 1 | Todo 1 |
@@ -10,8 +11,8 @@ Table todos
 | ... | ... |
 
 ## Database configuration
-1. Creation of the bd_todos database:
+1. Creation of the **db_todos** database:
 You can use MySQL Workbench locally if you want.
 2. Configuring Deno API:
-In the database.ts file, configure connection information to your local or remote MySQL database.
+In the **database.ts** file, configure connection information to your local or remote MySQL database.
 Then the scripts will create a todos table and add three todos examples.
