@@ -5,7 +5,7 @@
 [![React](https://img.shields.io/badge/React%20-%20v18.3.1%20-%20%2300ced1)](https://react.dev/)
 [![MySQL](https://img.shields.io/badge/MySQL%20-%20v2.11.0%20-%20%23daa520)](https://deno.land/x/mysql@v2.11.0)
 
-This project is a Todo List testing application developed using [Deno](https://deno.com/) for the back-end part (API) and [React](https://react.dev/) for the front-end (user interface), connected to a database [MySQL](https://deno.land/x/mysql).
+This project is a Todo List testing application developed using [Deno](https://deno.com/) for the back-end part (API) and [React](https://react.dev/) for the front-end, connected to a database [MySQL](https://deno.land/x/mysql).
 
 ## Features
 - Add a task to the list
@@ -18,9 +18,9 @@ This project is a Todo List testing application developed using [Deno](https://d
 - bd-mysql/: Contains the files used to initialize the MySQL database.
 
 ## Prerequisites
-- Deno must be installed on your machine. Please see the official Deno documentation for installation instructions : [Deno Installation Guide](https://docs.deno.com/runtime/manual/getting_started/installation)
-- Node.js and npm must be installed on your machine to run React UI.
-- Make sure you have access to a local or remote MySQL database to store the list tasks.
+- Deno must be installed : [Deno Installation Guide](https://docs.deno.com/runtime/manual/getting_started/installation).
+- Node.js and npm must be installed to run React : [Node.js and npm Installation Guide](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)
+- Have access to a local or remote MySQL database to store the list tasks : [MySQL Installation Guide](https://www.javatpoint.com/how-to-install-mysql)
 
 ## Installation and Use
 1. Clone this repository on your machine :
@@ -35,7 +35,7 @@ This project is a Todo List testing application developed using [Deno](https://d
 6. Navigate to the React directory :
 #### `cd interface-react`
 7. Install React dependencies :
-`npm install`
+#### `npm install`
 8. Launch React :
-`npm start`
+#### `npm start`
 9. Go to **http://localhost:3000** and $\color{#D29922}\textsf{✨magiiic✨}$.
