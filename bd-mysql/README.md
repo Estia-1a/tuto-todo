@@ -6,8 +6,9 @@ La base de données **db_todos** n'est composée que d'une seule table **todos**
 
 | id | todo |
 | --- | ----------- |
-| 1 | Todo 1 |
-| 2 | Todo 2 |
+| 1 | Feed the ewes |
+| 2 | Repair the wings of the mill |
+| 3 | Cook a good cassoulet for tomorrow |
 | ... | ... |
 
 ## Database configuration
