@@ -1,3 +1,4 @@
+// deno-lint-ignore-file no-explicit-any
 export default async function setupDatabase(client: any) {
     await client.transaction(async (conn: any) => {
       await conn.execute(`
