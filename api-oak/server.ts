@@ -4,6 +4,10 @@ import router from "./routes.ts";
 
 const app = new Application();
 
+// Charger les variables d'environnement
+export const client_id = Deno.env.get("GITHUB_CLIENT_ID");
+export const client_secret = Deno.env.get("GITHUB_CLIENT_SECRET");
+
 // Enable CORS for all routes (cross-origin resource sharing)
 app.use(oakCors());
 

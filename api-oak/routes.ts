@@ -1,6 +1,6 @@
 import { Router } from "https://deno.land/x/oak@v6.5.0/mod.ts";
-import { addTodo, deleteTodo, getTodo, getTodos, updateTodo } from "./todos.ts";
-import { registerUser, loginUser } from "./users.ts";
+import { addTodo, deleteTodo, getTodo, getTodos, updateTodo } from "./todo-list/todos.ts";
+import { registerUser, loginUser } from "./todo-list/users.ts";
 
 const router = new Router();
 
