@@ -35,7 +35,7 @@ This project is a Todo List testing application developed using [Deno](https://d
 6. Navigate to the React directory :
 #### `cd interface-react`
 7. Install React dependencies :
-#### `npm install`
+#### `npm ci`
 8. Launch React :
 #### `npm start`
 9. Go to **http://localhost:3000** and $\color{#D29922}\textsf{✨magiiic✨}$.
