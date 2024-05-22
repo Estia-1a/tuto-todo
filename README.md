@@ -27,11 +27,11 @@ This project is a Todo List testing application developed using [Deno](https://d
 #### `git clone https://github.com/Estia-1a/tuto-todo.git`
 2. Navigate to the project directory :
 #### `cd tuto-todo`
-3. Configure your MySQL database connection information in the `bd-mysql/database.ts` file.
+3. Configure your MySQL database connection information in a `.env` file.
 4. Install Deno API dependencies :
 #### `deno cache --unstable --reload --lock=lock.json --lock-write api-oak/server.ts`
 5. Launch the Todo List API by running the server.ts file :
-#### `deno run --allow-net --allow-read api-oak/server.ts`
+#### `deno run --allow-net --allow-read --allow-env api-oak/server.ts`
 6. Navigate to the React directory :
 #### `cd interface-react`
 7. Install React dependencies :
