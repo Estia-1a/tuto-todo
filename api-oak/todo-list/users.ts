@@ -1,6 +1,6 @@
 import { RouterContext } from "https://deno.land/x/oak@v6.5.0/mod.ts";
 import { compare, hash } from "https://deno.land/x/bcrypt@v0.4.1/mod.ts";
-import client from "../bd-mysql/database.ts";
+import client from "../../bd-mysql/database.ts";
 
 // Route handler to register a new user (POST)
 export const registerUser = async (ctx: RouterContext) => {

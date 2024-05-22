@@ -1,6 +1,6 @@
 import { RouterContext } from "https://deno.land/x/oak@v6.5.0/mod.ts";
 
-import client from "../bd-mysql/database.ts";
+import client from "../../bd-mysql/database.ts";
 
 // Route handler to get all todos (GET)
 export const getTodos = async (ctx: RouterContext) => {
