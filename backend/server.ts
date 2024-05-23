@@ -1,6 +1,6 @@
 import { Application } from "https://deno.land/x/oak@v6.5.0/mod.ts";
 import { oakCors } from "https://deno.land/x/cors@v1.2.0/mod.ts";
-import router from "./routes/todoRoutes.ts";
+import router from "./routes/index.ts";
 
 const app = new Application();
 
