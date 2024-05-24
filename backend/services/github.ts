@@ -1,5 +1,6 @@
 import { RouterContext } from "https://deno.land/x/oak@v6.5.0/mod.ts";
 import { client_id, client_secret } from "../server.ts";
+import { createUser } from "../controllers/users.ts";
 
 // Route handler to redirect user to Github authentication page (GET)
 export const redirectToGitHubLogin = (context: RouterContext) => {
@@ -10,27 +11,21 @@ export const redirectToGitHubLogin = (context: RouterContext) => {
 
 // Route handler after GitHub authentification for accessing to user data (GET)
 export const handleGitHubCallback = async (context: RouterContext) => {
-  // Get the authorization code from the request URL
-  const code = context.request.url.searchParams.get("code");
+  try {
+    console.log("GitHub callback route hit");
 
-  // Check if the authorization code is present
-  if (!code) {
-    context.response.status = 400;
-    context.response.body = "Missing authorization code";
-    return;
-  }
+    const url = new URL(context.request.url);
+    console.log("Request URL:", url.toString());
+    const code = url.searchParams.get("code");
+    console.log("Authorization code:", code);
 
-  // Checks if client_id and client_secret are configured
-  if (!client_id || !client_secret) {
-    context.response.status = 500;
-    context.response.body = "GitHub client ID or secret not configured";
-    return;
-  }
+    if (!code) {
+      context.response.status = 400;
+      context.response.body = "Missing authorization code";
+      return;
+    }
 
-  // Exchange the authorization code for a GitHub access token
-  const tokenResponse = await fetch(
-    "https://github.com/login/oauth/access_token",
-    {
+    const tokenResponse = await fetch("https://github.com/login/oauth/access_token", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -41,23 +36,34 @@ export const handleGitHubCallback = async (context: RouterContext) => {
         client_secret,
         code,
       }),
-    },
-  );
+    });
 
-  // Get GitHub access token data
-  const tokenData = await tokenResponse.json();
-  const accessToken = tokenData.access_token;
+    const tokenData = await tokenResponse.json();
+    console.log("Token response data:", tokenData);
+    const accessToken = tokenData.access_token;
 
-  // Uses access token to get user data from GitHub API
-  const userResponse = await fetch("https://api.github.com/user", {
-    headers: {
-      "Authorization": `Bearer ${accessToken}`,
-    },
-  });
+    if (!accessToken) {
+      context.response.status = 500;
+      context.response.body = "Failed to obtain access token";
+      return;
+    }
 
-  // Get user data
-  const userData = await userResponse.json();
+    const userResponse = await fetch("https://api.github.com/user", {
+      headers: {
+        "Authorization": `Bearer ${accessToken}`,
+      },
+    });
 
-  // Return user data in response
-  context.response.body = userData;
+    const userData = await userResponse.json();
+    console.log("User data:", userData);
+
+    // Enregistrer l'utilisateur dans la base de données
+    await createUser(userData);
+
+    context.response.body = "User authenticated and logged in";
+  } catch (error) {
+    console.error("Error during GitHub callback handling:", error);
+    context.response.status = 500;
+    context.response.body = "Internal server error";
+  }
 };
