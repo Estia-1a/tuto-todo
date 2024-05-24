@@ -1,14 +1,15 @@
 import client from "../database/database.ts";
 
+// Function to add user in database if not exists
 export const createUser = async (userData: any) => {
-  // Vérifiez si l'utilisateur existe déjà
+  // Check if the user exists
   const existingUser = await client.query(
     `SELECT * FROM github WHERE id = ?`,
     [userData.id]
   );
 
   if (existingUser.length === 0) {
-    // Insérez les données utilisateur dans la table github
+    // Add the user to the database
     await client.execute(`
       INSERT INTO github (id, login, url_avatar, url_profil)
       VALUES (?, ?, ?, ?)

@@ -14,17 +14,20 @@ export const handleGitHubCallback = async (context: RouterContext) => {
   try {
     console.log("GitHub callback route hit");
 
+     // Get the authorization code from the request URL
     const url = new URL(context.request.url);
     console.log("Request URL:", url.toString());
     const code = url.searchParams.get("code");
     console.log("Authorization code:", code);
 
+    // Check if the authorization code is present
     if (!code) {
       context.response.status = 400;
       context.response.body = "Missing authorization code";
       return;
     }
 
+    // Exchange the authorization code for a GitHub access token
     const tokenResponse = await fetch("https://github.com/login/oauth/access_token", {
       method: "POST",
       headers: {
@@ -38,28 +41,33 @@ export const handleGitHubCallback = async (context: RouterContext) => {
       }),
     });
 
+    // Get GitHub access token data
     const tokenData = await tokenResponse.json();
     console.log("Token response data:", tokenData);
     const accessToken = tokenData.access_token;
 
+    // Check if the access token is ok
     if (!accessToken) {
       context.response.status = 500;
       context.response.body = "Failed to obtain access token";
       return;
     }
 
+    // Uses access token to get user data from GitHub API
     const userResponse = await fetch("https://api.github.com/user", {
       headers: {
         "Authorization": `Bearer ${accessToken}`,
       },
     });
 
+    // Get user data
     const userData = await userResponse.json();
     console.log("User data:", userData);
 
-    // Enregistrer l'utilisateur dans la base de données
+    // Add the user to the database with GitHub data
     await createUser(userData);
 
+    // Return status
     context.response.body = "User authenticated and logged in";
   } catch (error) {
     console.error("Error during GitHub callback handling:", error);

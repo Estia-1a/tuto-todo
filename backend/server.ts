@@ -4,7 +4,7 @@ import router from "./routes/index.ts";
 
 const app = new Application();
 
-// Charger les variables d'environnement
+// Load environment variables
 export const client_id = Deno.env.get("GITHUB_CLIENT_ID");
 export const client_secret = Deno.env.get("GITHUB_CLIENT_SECRET");
 
