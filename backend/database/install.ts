@@ -1,26 +1,33 @@
 // deno-lint-ignore-file no-explicit-any
 export default async function setupDatabase(client: any) {
-    await client.transaction(async (conn: any) => {
-      await conn.execute(`
-        CREATE TABLE IF NOT EXISTS todos (
-            id int(5) NOT NULL AUTO_INCREMENT,
-            todo varchar(255) NOT NULL,
-            PRIMARY KEY (id)
-        ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  await client.transaction(async (conn: any) => {
+    await conn.execute(`
+      CREATE TABLE IF NOT EXITS _user (
+        id int(5) NOT NULL AUTO_INCREMENT,
+        PRIMARY KEY (id)
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
       `);
 
-      await conn.execute(`
-        CREATE TABLE IF NOT EXISTS users (
-          id int(5) NOT NULL AUTO_INCREMENT,
-          pseudo varchar(255) UNIQUE NOT NULL,
-          mdp varchar(255) NOT NULL,
-          PRIMARY KEY (id)
-        ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+    await conn.execute(`
+      CREATE TABLE IF NOT EXISTS todo (
+        id int(5) NOT NULL AUTO_INCREMENT,
+        title varchar(255) NOT NULL,
+        user_id int(5) NOT NULL,
+        PRIMARY KEY (id),
+        foreign key (user_id) references _user (id)
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
       `);
-  
-      await conn.execute(`INSERT INTO todos (todo) VALUES (?)`, ["Feed the ewes"]);
-      await conn.execute(`INSERT INTO todos (todo) VALUES (?)`, ["Repair the wings of the mill"]);
-      await conn.execute(`INSERT INTO todos (todo) VALUES (?)`, ["Cook a good cassoulet for tomorrow"]);
-    });
-  }
-  
+
+    await conn.execute(`
+      CREATE TABLE github (
+        id int(10) UNIQUE NOT NULL,
+        login varchar(255) NOT NULL,
+        url_avatar varchar(255) NOT NULL,
+        profil_url varchar(255) NOT NULL,
+        user_id int(5) NOT NULL,
+        PRIMARY KEY (id),
+        foreign key (user_id) references _user (id)
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+      `);
+  });
+}

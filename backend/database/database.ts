@@ -18,7 +18,7 @@ const client = await new Client().connect({
 
 // Check if the tables exist
 const result = await client.execute(`SHOW TABLES`);
-const tablesExist = result.rows && result.rows.length > 1;
+const tablesExist = result.rows && result.rows.length > 2;
 
 // If tables don't exist, call the installation script
 if (!tablesExist) {
