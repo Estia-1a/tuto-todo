@@ -2,6 +2,7 @@ import { Handlers } from "$fresh/server.ts";
 
 // Load environment variable
 const client_id = Deno.env.get("GITHUB_CLIENT_ID");
+console.log(client_id);
 
 const redirectURI = "http://localhost:3000/auth/github/callback";
 
