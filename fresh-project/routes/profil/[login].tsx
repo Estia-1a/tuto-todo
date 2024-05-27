@@ -29,6 +29,9 @@ export default function ProfilePage(props: PageProps) {
         <p>
           <a href={url_profil} target="_blank" class="text-blue-500">View GitHub Profile</a>
         </p>
+        <p>
+        <a href={`/${login}/todos`} target="_blank" class="text-blue-500">View my To-Do List</a>
+        </p>
       </div>
     </div>
   );
