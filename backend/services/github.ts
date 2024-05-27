@@ -68,7 +68,8 @@ export const handleGitHubCallback = async (context: RouterContext) => {
     await createUser(userData);
 
     // Return status
-    context.response.body = "User authenticated and logged in";
+    console.log("User authenticated and logged in");
+    context.response.redirect(`http://localhost:8000/profil/${userData.login}`); // remplacer par une redirection plus propre
   } catch (error) {
     console.error("Error during GitHub callback handling:", error);
     context.response.status = 500;
