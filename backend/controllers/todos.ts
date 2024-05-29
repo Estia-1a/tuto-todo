@@ -5,7 +5,7 @@ import client from "../database/database.ts";
 // Route handler to get all todos (GET)
 export const getTodos = async (ctx: RouterContext) => {
   try {
-    const result = await client.query(`SELECT * FROM todos`);
+    const result = await client.query(`SELECT * FROM todo`);
     ctx.response.body = result;
   } catch (_error) {
     ctx.response.status = 500;
@@ -21,7 +21,7 @@ export const getTodo = async (ctx: RouterContext) => {
     if (!isNaN(index) && index >= 0) {
       try {
         const result = await client.query(
-          `SELECT * FROM db_todos.todos WHERE id = ?`,
+          `SELECT * FROM db_todos.todo WHERE id = ?`,
           [index],
         );
         if (result.length > 0) {
@@ -72,11 +72,12 @@ export const getTodo = async (ctx: RouterContext) => {
 export const addTodo = async (ctx: RouterContext) => {
   try {
     const data = await ctx.request.body().value;
-    const newTodo = data.todo;
+    const newTodo = data.title;
+    const user = data.user;
 
     const _result = await client.execute(
-      `INSERT INTO db_todos.todos (todo) VALUES (?)`,
-      [newTodo],
+      `INSERT INTO db_todos.todo (title, user_id) VALUES (?, ?)`,
+      [newTodo, user],
     );
 
     ctx.response.status = 202;
@@ -106,7 +107,7 @@ export const updateTodo = async (ctx: RouterContext) => {
         const updatedTodo = data.todo;
 
         const result = await client.execute(
-          `UPDATE db_todos.todos SET todo = ? WHERE id = ?`,
+          `UPDATE db_todos.todo SET title = ? WHERE id = ?`,
           [updatedTodo, index],
         );
 
@@ -158,7 +159,7 @@ export const deleteTodo = async (ctx: RouterContext) => {
     if (!isNaN(index) && index >= 0) {
       try {
         const result = await client.execute(
-          `DELETE FROM db_todos.todos WHERE id = ?`,
+          `DELETE FROM db_todos.todo WHERE id = ?`,
           [index],
         );
 
