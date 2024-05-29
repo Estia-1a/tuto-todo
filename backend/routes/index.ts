@@ -1,7 +1,7 @@
 import { Router } from "https://deno.land/x/oak@v6.5.0/mod.ts";
-import { addTodo, deleteTodo, getTodo, getTodos, updateTodo } from "../controllers/todos.ts";
-import { createUser } from "../controllers/users.ts";
-import { redirectToGitHubLogin, handleGitHubCallback } from "../services/github.ts";
+import { addTodo, deleteTodo, getTodo, getTodos, updateTodo } from "../handlers/todos.ts";
+import { createUser } from "../handlers/users.ts";
+import { redirectToGitHubLogin, handleGitHubCallback } from "../handlers/github.ts";
 
 const router = new Router();
 

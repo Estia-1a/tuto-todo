@@ -1,6 +1,9 @@
 import { RouterContext } from "https://deno.land/x/oak@v6.5.0/mod.ts";
-import { client_id, client_secret } from "../server.ts";
-import { createUser } from "../controllers/users.ts";
+import {
+  client_id,
+  client_secret
+} from "../server.ts";
+import { createUser } from "./users.ts";
 
 // Route handler to redirect user to Github authentication page (GET)
 export const redirectToGitHubLogin = (context: RouterContext) => {
@@ -40,7 +43,7 @@ export const handleGitHubCallback = async (context: RouterContext) => {
         code,
       }),
     });
-
+console.log(tokenResponse);
     // Get GitHub access token data
     const tokenData = await tokenResponse.json();
     console.log("Token response data:", tokenData);
@@ -69,7 +72,7 @@ export const handleGitHubCallback = async (context: RouterContext) => {
     console.log("User authenticated and logged in");
 
     // Redirect to the profil page
-    context.response.redirect(`http://localhost:8000/profil/${userData.login}`); // remplacer par une redirection plus propre
+    context.response.redirect(`http://localhost:8000/${userData.login}/profile`); // remplacer par une redirection plus propre
   } catch (error) {
     console.error("Error during GitHub callback handling:", error);
     context.response.status = 500;
