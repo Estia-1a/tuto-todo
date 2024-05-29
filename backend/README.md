@@ -14,13 +14,13 @@ This Todo List API is developed using [Deno](https://deno.com/) and [Oak](https:
 ### GITHUB AUTH
 - Redirect to GitHub API for authentication: `http://localhost:3000/auth/github`
 - Handle GitHub callback and retrieve user data: `http://localhost:3000/github/callback`
-- 
+
 ## Structure :
 - /database
-Contains all files related to the database setup and queries
+  - Contains all files related to the database setup and queries
 - /handlers
-Contains functions that handle the logic for different routes
+  - Contains functions that handle the logic for different routes
 - /routes
-Defines the API routes and links them to their respective handlers
+  - Defines the API routes and links them to their respective handlers
 - server.ts
-The main entry point of the application that sets up and starts the server
+  - The main entry point of the application that sets up and starts the server
