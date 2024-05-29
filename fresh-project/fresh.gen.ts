@@ -9,6 +9,7 @@ import * as $api_auth from "./routes/api/auth.ts";
 import * as $index from "./routes/index.tsx";
 import * as $profil_login_ from "./routes/profil/[login].tsx";
 import * as $LogIn from "./islands/LogIn.tsx";
+import * as $ToDoList from "./islands/ToDoList.tsx";
 import { type Manifest } from "$fresh/server.ts";
 
 const manifest = {
@@ -22,6 +23,7 @@ const manifest = {
   },
   islands: {
     "./islands/LogIn.tsx": $LogIn,
+    "./islands/ToDoList.tsx": $ToDoList,
   },
   baseUrl: import.meta.url,
 } satisfies Manifest;

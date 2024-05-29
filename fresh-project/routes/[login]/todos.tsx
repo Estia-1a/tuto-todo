@@ -1,24 +1,35 @@
 /** @jsxImportSource preact */
-import { Handlers } from "$fresh/server.ts";
-import { PageProps } from "$fresh/server.ts";
+import { Handlers, PageProps } from "$fresh/server.ts";
+import ToDoList from "../../islands/ToDoList.tsx";
 
-export const handler: Handlers = {
-  GET(_, ctx) {
-    return ctx.render();
+interface Todo {
+  id: number;
+  title: string;
+  user_id: number;
+}
+
+interface Data {
+  todos: Todo[];
+}
+
+export const handler: Handlers<Data> = {
+  async GET(_, ctx) {
+    const resp = await fetch("http://localhost:3000/todos");
+    if (!resp.ok) {
+      console.error("Failed to fetch todos:", resp.statusText);
+      return ctx.render({ todos: [] });
+    }
+    const todos: Todo[] = await resp.json();
+    return ctx.render({ todos });
   },
 };
 
-export default function ToDoList(props: PageProps) {
+export default function Page(props: PageProps<Data>) {
+  const { todos } = props.data;
+
   return (
     <div class="container px-4 py-8 mx-auto">
-      <div class="max-w-screen-md mx-auto flex flex-col items-center justify-center border p-6 bg-white dark:bg-gray-800 rounded-lg shadow-lg">
-        <h1 class="mb-4 text-3xl font-extrabold leading-none tracking-tight text-[#02283b] md:text-4xl lg:text-5xl dark:text-white">
-          My To-Do List
-        </h1>
-        <p>
-          <a class="text-left" href="{javascript:history.back()}">Retour</a>
-        </p>
-      </div>
+      <ToDoList todos={todos} />
     </div>
   );
 }
