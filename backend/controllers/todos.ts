@@ -1,9 +1,8 @@
-import { RouterContext } from "https://deno.land/x/oak@v6.5.0/mod.ts";
-
+// deno-lint-ignore-file no-explicit-any
 import client from "../database/database.ts";
 
 // Route handler to get all todos (GET)
-export const getTodos = async (ctx: RouterContext) => {
+export const getTodos = async (ctx: any) => {
   try {
     const result = await client.query(`SELECT * FROM todo`);
     ctx.response.body = result;
@@ -14,7 +13,7 @@ export const getTodos = async (ctx: RouterContext) => {
 };
 
 // Route handler to get a todo with index (GET)
-export const getTodo = async (ctx: RouterContext) => {
+export const getTodo = async (ctx: any) => {
   const indexParam = ctx.params.index;
   if (indexParam !== undefined) {
     const index = parseInt(indexParam);
@@ -69,7 +68,7 @@ export const getTodo = async (ctx: RouterContext) => {
 };
 
 // Route handler to add a todo (POST)
-export const addTodo = async (ctx: RouterContext) => {
+export const addTodo = async (ctx: any) => {
   try {
     const data = await ctx.request.body().value;
     const newTodo = data.title;
@@ -97,7 +96,7 @@ export const addTodo = async (ctx: RouterContext) => {
 };
 
 // Route handler to update a todo with index (UPDATE)
-export const updateTodo = async (ctx: RouterContext) => {
+export const updateTodo = async (ctx: any) => {
   const indexParam = ctx.params.index;
   if (indexParam !== undefined) {
     const index = parseInt(indexParam);
@@ -152,7 +151,7 @@ export const updateTodo = async (ctx: RouterContext) => {
 };
 
 // Route handler to uelete a todo with index (DELETE)
-export const deleteTodo = async (ctx: RouterContext) => {
+export const deleteTodo = async (ctx: any) => {
   const indexParam = ctx.params.index;
   if (indexParam !== undefined) {
     const index = parseInt(indexParam);

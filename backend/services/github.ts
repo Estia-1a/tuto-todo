@@ -1,29 +1,29 @@
-import { RouterContext } from "https://deno.land/x/oak@v6.5.0/mod.ts";
+// deno-lint-ignore-file no-explicit-any
 import { client_id, client_secret } from "../server.ts";
 import { createUser } from "../controllers/users.ts";
 
 // Route handler to redirect user to Github authentication page (GET)
-export const redirectToGitHubLogin = (context: RouterContext) => {
+export const redirectToGitHubLogin = (ctx: any) => {
   const redirectUrl =
     `https://github.com/login/oauth/authorize?client_id=${client_id}&scope=user`;
-  context.response.redirect(redirectUrl);
+    ctx.response.redirect(redirectUrl);
 };
 
 // Route handler after GitHub authentification for accessing to user data (GET)
-export const handleGitHubCallback = async (context: RouterContext) => {
+export const handleGitHubCallback = async (ctx: any) => {
   try {
     console.log("GitHub callback route hit");
 
      // Get the authorization code from the request URL
-    const url = new URL(context.request.url);
+    const url = new URL(ctx.request.url);
     console.log("Request URL:", url.toString());
     const code = url.searchParams.get("code");
     console.log("Authorization code:", code);
 
     // Check if the authorization code is present
     if (!code) {
-      context.response.status = 400;
-      context.response.body = "Missing authorization code";
+      ctx.response.status = 400;
+      ctx.response.body = "Missing authorization code";
       return;
     }
 
@@ -48,8 +48,8 @@ export const handleGitHubCallback = async (context: RouterContext) => {
 
     // Check if the access token is ok
     if (!accessToken) {
-      context.response.status = 500;
-      context.response.body = "Failed to obtain access token";
+      ctx.response.status = 500;
+      ctx.response.body = "Failed to obtain access token";
       return;
     }
 
@@ -69,10 +69,10 @@ export const handleGitHubCallback = async (context: RouterContext) => {
     console.log("User authenticated and logged in");
 
     // Redirect to the profil page
-    context.response.redirect(`http://localhost:8000/profil/${userData.login}`); // remplacer par une redirection plus propre
+    ctx.response.redirect(`http://localhost:8000/profil/${userData.login}`); // remplacer par une redirection plus propre
   } catch (error) {
     console.error("Error during GitHub callback handling:", error);
-    context.response.status = 500;
-    context.response.body = "Internal server error";
+    ctx.response.status = 500;
+    ctx.response.body = "Internal server error";
   }
 };

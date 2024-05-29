@@ -1,3 +1,4 @@
+// deno-lint-ignore-file no-explicit-any
 import client from "../database/database.ts";
 
 // Function to add user in database if not exists
