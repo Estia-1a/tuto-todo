@@ -21,7 +21,7 @@ export default function ToDoList({ todos }: ToDoListProps) {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ title: newTodo, user: 119617379 }), 
+      body: JSON.stringify({ title: newTodo, user: 119617379 }),
     });
 
     if (response.ok) {
@@ -53,7 +53,10 @@ export default function ToDoList({ todos }: ToDoListProps) {
         </h1>
         <ul class="w-full">
           {todoList.map((todo) => (
-            <li key={todo.id} class="border-b py-2 flex justify-between items-center">
+            <li
+              key={todo.id}
+              class="border-b py-2 flex justify-between items-center"
+            >
               <span>{todo.title}</span>
               <button
                 onClick={() => handleDeleteTodo(todo.id)}
@@ -78,10 +81,10 @@ export default function ToDoList({ todos }: ToDoListProps) {
           >
             Add Todo
           </button>
+          <p>
+            <a href="profile" class="text-left">↩Back</a>
+          </p>
         </div>
-        <p>
-          <a href="/" class="text-left">Retour</a>
-        </p>
       </div>
     </div>
   );
