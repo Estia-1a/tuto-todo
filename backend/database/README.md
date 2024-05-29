@@ -1,19 +1,32 @@
-# Database in MySQL
-This project uses a [MySQL](https://deno.land/x/mysql@v2.11.0) database to store the todos.
+# Database
+This project uses a [MySQL](https://deno.land/x/mysql@v2.11.0) database to store the todos and user information.
 
 ## Structure
-The **db_todos** database is made up of only one **todos** table whose structure is as follows :
-
-| id | todo |
-| --- | ----------- |
-| 1 | Feed the ewes |
-| 2 | Repair the wings of the mill |
-| 3 | Cook a good cassoulet for tomorrow |
-| ... | ... |
-
-## Database configuration
-1. Creation of the **db_todos** database :
-You can use MySQL Workbench locally if you want.
-2. Configuring Deno API :
-In the **database.ts** file, configure connection information to your local or remote MySQL database.
-Then the scripts will create a todos table and add three todos examples.
+The **db_todos** database is made up of two tables whose structure is as follows :
+### Tables
+#### todo
+```
+CREATE TABLE IF NOT EXISTS todo (
+            id int(5) NOT NULL AUTO_INCREMENT,
+            title varchar(255) NOT NULL,
+            user_id int(5) NOT NULL,
+            PRIMARY KEY (id),
+            foreign key (user_id) references github (id)
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+```
+#### user
+```
+ CREATE TABLE github (
+            id int(10) UNIQUE NOT NULL,
+            login varchar(255) NOT NULL,
+            url_avatar varchar(255) NOT NULL,
+            url_profil varchar(255) NOT NULL,
+            PRIMARY KEY (id)
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+```
+## Database connection
+Ensure to provide the database connection information in the .env file of the project. The required environment variables are :
+- DB_HOSTNAME - The hostname of the MySQL server
+- DB_USERNAME - The username to connect to the MySQL server
+- DB_NAME - The name of the MySQL database
+- DB_PASSWORD - The password to connect to the MySQL server
