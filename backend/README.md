@@ -10,7 +10,7 @@ This Todo List API is developed using [Deno](https://deno.com/) and [Oak](https:
 - PUT to update a todo: `http://localhost:3000/todos/:index` with JSON body
 - DELETE a todo: `http://localhost:3000/todos/:index`
 ### USERS
-- Register a new user: `http://localhost:3000/register` with JSON body
+- Register a new user: `http://localhost:3000/user/register` with JSON body
 ### GITHUB AUTH
 - Redirect to GitHub API for authentication: `http://localhost:3000/auth/github`
 - Handle GitHub callback and retrieve user data: `http://localhost:3000/github/callback`
