@@ -26,10 +26,12 @@ export const handler: Handlers<Data> = {
 
 export default function Page(props: PageProps<Data>) {
   const { todos } = props.data;
+  const urlParams = new URLSearchParams(props.url.search);
+  const login = urlParams.get('login') || '';
 
   return (
     <div class="container px-4 py-8 mx-auto">
-      <ToDoList todos={todos} />
+      <ToDoList todos={todos} login={login}/>
     </div>
   );
 }

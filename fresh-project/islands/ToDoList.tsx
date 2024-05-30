@@ -1,5 +1,5 @@
 /** @jsxImportSource preact */
-import { useState } from "preact/hooks";
+import { useState, useEffect } from "preact/hooks";
 
 interface Todo {
   id: number;
@@ -9,19 +9,44 @@ interface Todo {
 
 interface ToDoListProps {
   todos: Todo[];
+  login: string;
 }
 
-export default function ToDoList({ todos }: ToDoListProps) {
+export default function ToDoList({ todos, login }: ToDoListProps) {
   const [newTodo, setNewTodo] = useState("");
   const [todoList, setTodoList] = useState(todos);
+  const [userId, setUserId] = useState<number | null>(null);
 
+  useEffect(() => {
+    const handleGetId = async () => {
+      try {
+        const response = await fetch(`http://localhost:3000/user/${login}`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+        if (response.ok) {
+          const responseData = await response.json();
+          const fetchedUserId = responseData.data.id;
+          setUserId(fetchedUserId);
+        } else {
+          console.error("Failed to get user id:", response.statusText);
+        }
+      } catch (error) {
+        console.error("Failed to fetch user id:", error);
+      }
+    };
+
+    handleGetId();
+  }, [login]);
   const handleAddTodo = async () => {
     const response = await fetch("http://localhost:3000/todos", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ title: newTodo, user: 119617379 }),
+      body: JSON.stringify({ title: newTodo, user: userId }),
     });
 
     if (response.ok) {
