@@ -1,8 +1,5 @@
 import { RouterContext } from "https://deno.land/x/oak@v6.5.0/mod.ts";
-import {
-  client_id,
-  client_secret
-} from "../server.ts";
+import { client_id, client_secret } from "../server.ts";
 import { createUser } from "./users.ts";
 
 // Route handler to redirect user to Github authentication page (GET)
@@ -17,7 +14,7 @@ export const handleGitHubCallback = async (context: RouterContext) => {
   try {
     console.log("GitHub callback route hit");
 
-     // Get the authorization code from the request URL
+    // Get the authorization code from the request URL
     const url = new URL(context.request.url);
     console.log("Request URL:", url.toString());
     const code = url.searchParams.get("code");
@@ -31,19 +28,22 @@ export const handleGitHubCallback = async (context: RouterContext) => {
     }
 
     // Exchange the authorization code for a GitHub access token
-    const tokenResponse = await fetch("https://github.com/login/oauth/access_token", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Accept": "application/json",
+    const tokenResponse = await fetch(
+      "https://github.com/login/oauth/access_token",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json",
+        },
+        body: JSON.stringify({
+          client_id,
+          client_secret,
+          code,
+        }),
       },
-      body: JSON.stringify({
-        client_id,
-        client_secret,
-        code,
-      }),
-    });
-console.log(tokenResponse);
+    );
+    console.log(tokenResponse);
     // Get GitHub access token data
     const tokenData = await tokenResponse.json();
     console.log("Token response data:", tokenData);
@@ -72,7 +72,9 @@ console.log(tokenResponse);
     console.log("User authenticated and logged in");
 
     // Redirect to the profil page
-    context.response.redirect(`http://localhost:8000/${userData.login}/profile`); // remplacer par une redirection plus propre
+    context.response.redirect(
+      `http://localhost:8000/${userData.login}/profile`,
+    ); // remplacer par une redirection plus propre
   } catch (error) {
     console.error("Error during GitHub callback handling:", error);
     context.response.status = 500;
