@@ -2,24 +2,24 @@
 // This file SHOULD be checked into source version control.
 // This file is automatically updated during development when running `dev.ts`.
 
+import * as $_login_profile from "./routes/[login]/profile.tsx";
 import * as $_login_todos from "./routes/[login]/todos.tsx";
 import * as $_404 from "./routes/_404.tsx";
 import * as $_app from "./routes/_app.tsx";
 import * as $api_auth from "./routes/api/auth.ts";
 import * as $index from "./routes/index.tsx";
-import * as $profil_login_ from "./routes/profil/[login].tsx";
 import * as $LogIn from "./islands/LogIn.tsx";
 import * as $ToDoList from "./islands/ToDoList.tsx";
 import { type Manifest } from "$fresh/server.ts";
 
 const manifest = {
   routes: {
+    "./routes/[login]/profile.tsx": $_login_profile,
     "./routes/[login]/todos.tsx": $_login_todos,
     "./routes/_404.tsx": $_404,
     "./routes/_app.tsx": $_app,
     "./routes/api/auth.ts": $api_auth,
     "./routes/index.tsx": $index,
-    "./routes/profil/[login].tsx": $profil_login_,
   },
   islands: {
     "./islands/LogIn.tsx": $LogIn,

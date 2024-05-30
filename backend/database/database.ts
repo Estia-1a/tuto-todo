@@ -16,14 +16,4 @@ const client = await new Client().connect({
   password: Deno.env.get("DB_PASSWORD"),
 });
 
-// Check if the tables exist
-const result = await client.execute(`SHOW TABLES`);
-const tablesExist = result.rows && result.rows.length > 0;
-
-// If tables don't exist, call the installation script
-if (!tablesExist) {
-  const { default: setupDatabase } = await import("./install.ts");
-  await setupDatabase(client);
-}
-
 export default client;
