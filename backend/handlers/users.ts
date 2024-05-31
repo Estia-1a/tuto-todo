@@ -20,16 +20,13 @@ export const createUser = async (userData: any) => {
   }
 };
 
-// Handler to add user in database if not exists (GET)
+// Handler to get user data with id (GET)
 export const getUserData = async (ctx: any) => {
   const id = ctx.params.id;
-
-  // Vérifier que l'ID est défini et qu'il s'agit d'un nombre valide
   if (id !== undefined) {
-    const userId = parseInt(id, 10);  // Convertir l'ID en nombre
+    const userId = parseInt(id, 10);
     if (!isNaN(userId) && userId > 0) {
       try {
-        // Exécuter la requête pour récupérer les données de l'utilisateur
         const result = await client.query(
           `SELECT * FROM db_todos.github WHERE id = ?`,
           [userId],

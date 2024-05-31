@@ -12,7 +12,7 @@ export const getTodos = async (ctx: any) => {
   }
 };
 
-// Route handler to get a todo with index (GET)
+// Route handler to get user data with id (GET)
 export const getUserTodos = async (ctx: any) => {
   const indexParam = ctx.params.user_id;
   if (indexParam !== undefined) {
