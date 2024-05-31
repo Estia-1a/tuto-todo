@@ -15,6 +15,11 @@ interface ToDoListProps {
 export default function ToDoList({ todos, id }: ToDoListProps) {
   const [newTodo, setNewTodo] = useState("");
   const [todoList, setTodoList] = useState(todos);
+
+  useEffect(() => {
+    setTodoList(todos);
+  }, [todos]);
+
   const handleAddTodo = async () => {
     const response = await fetch("http://localhost:3000/todos", {
       method: "POST",
@@ -23,16 +28,21 @@ export default function ToDoList({ todos, id }: ToDoListProps) {
       },
       body: JSON.stringify({ title: newTodo, user: id }),
     });
-
+  
     if (response.ok) {
-      const addedTodo: Todo = await response.json();
-      setTodoList([...todoList, addedTodo]);
-      setNewTodo("");
+      const responseData = await response.json();
+      if (responseData.success) {
+        const addedTodo: Todo = { id: todoList.length + 1, title: responseData.data, user_id: parseInt(id) }; 
+        setTodoList([...todoList, addedTodo]);
+        setNewTodo("");
+      } else {
+        console.error("Failed to add todo:", responseData.message); 
+      }
     } else {
       console.error("Failed to add todo:", response.statusText);
     }
   };
-
+  
   const handleDeleteTodo = async (id: number) => {
     const response = await fetch(`http://localhost:3000/todos/${id}`, {
       method: "DELETE",
