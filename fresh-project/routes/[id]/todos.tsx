@@ -16,7 +16,6 @@ interface Data {
 export const handler: Handlers<Data> = {
   async GET(_, ctx) {
     const id = ctx.params.id;
-    console.log(id);
     const resp = await fetch(`http://localhost:3000/todos/${id}`);
     if (!resp.ok) {
       console.error("Failed to fetch todos:", resp.statusText);
