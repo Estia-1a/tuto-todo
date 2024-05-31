@@ -13,34 +13,18 @@ export const getTodos = async (ctx: any) => {
 };
 
 // Route handler to get a todo with index (GET)
-export const getTodo = async (ctx: any) => {
-  const indexParam = ctx.params.index;
+export const getUserTodos = async (ctx: any) => {
+  const indexParam = ctx.params.user_id;
   if (indexParam !== undefined) {
     const index = parseInt(indexParam);
     if (!isNaN(index) && index >= 0) {
       try {
-        const result = await client.query(
-          `SELECT * FROM db_todos.todo WHERE id = ?`,
-          [index],
-        );
-        if (result.length > 0) {
-          const todo = result[0];
-          ctx.response.status = 201;
-          ctx.response.body = {
-            success: true,
-            data: todo,
-            message: "Todo recovered",
-          };
-          return;
-        } else {
-          ctx.response.status = 404;
-          ctx.response.body = {
-            success: false,
-            message: "Todo not found",
-          };
+        const result = await client.query(`SELECT * FROM todo WHERE user_id = ?`,
+        [index],);
+    ctx.response.body = result;
           return;
         }
-      } catch (error) {
+     catch (error) {
         console.error(error);
         ctx.response.status = 500;
         ctx.response.body = {

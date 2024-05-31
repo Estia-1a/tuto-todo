@@ -43,7 +43,6 @@ export const handleGitHubCallback = async (context: RouterContext) => {
         }),
       },
     );
-    console.log(tokenResponse);
     // Get GitHub access token data
     const tokenData = await tokenResponse.json();
     console.log("Token response data:", tokenData);
@@ -73,7 +72,7 @@ export const handleGitHubCallback = async (context: RouterContext) => {
 
     // Redirect to the profil page
     context.response.redirect(
-      `http://localhost:8000/${userData.login}/profile`,
+      `http://localhost:8000/${userData.id}/profile`,
     ); // remplacer par une redirection plus propre
   } catch (error) {
     console.error("Error during GitHub callback handling:", error);
