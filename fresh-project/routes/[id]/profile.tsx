@@ -1,5 +1,6 @@
 /** @jsxImportSource preact */
 import { Handlers, PageProps } from "$fresh/server.ts";
+import { ProfileIsland } from "../../islands/Profile.tsx";
 
 export const handler: Handlers = {
   async GET(req, ctx) {
@@ -25,26 +26,9 @@ export const handler: Handlers = {
 };
 
 export default function ProfilePage(props: PageProps) {
-  const { id, login, url_avatar, url_profil } = props.data;
-  console.log(props.data);
-
   return (
-    <div class="container mx-auto px-4 py-8">
-      <div class="max-w-md mx-auto bg-white p-5 rounded-lg shadow-lg">
-        <div class="text-center">
-          <h1 class="text-2xl font-bold mb-4">Welcome, {login}!</h1>
-          <img src={url_avatar} alt={`${login}'s avatar`} class="w-32 h-32 rounded-full mx-auto mb-4" />
-          <p>
-            <a href={url_profil} target="_blank" class="text-blue-500">View GitHub Profile</a>
-          </p>
-          <p>
-            <a href={`/${id}/todos`} class="text-blue-500">View the To-Do List</a>
-          </p>
-        </div>
-        <p>
-          <a href="/" class="text-left">↩Disconnect</a>
-        </p>
-      </div>
+    <div>
+      <ProfileIsland data={props.data} />
     </div>
   );
 }

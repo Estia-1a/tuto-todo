@@ -9,6 +9,7 @@ import * as $_app from "./routes/_app.tsx";
 import * as $api_auth from "./routes/api/auth.ts";
 import * as $index from "./routes/index.tsx";
 import * as $LogIn from "./islands/LogIn.tsx";
+import * as $Profile from "./islands/Profile.tsx";
 import * as $ToDoList from "./islands/ToDoList.tsx";
 import { type Manifest } from "$fresh/server.ts";
 
@@ -23,6 +24,7 @@ const manifest = {
   },
   islands: {
     "./islands/LogIn.tsx": $LogIn,
+    "./islands/Profile.tsx": $Profile,
     "./islands/ToDoList.tsx": $ToDoList,
   },
   baseUrl: import.meta.url,
