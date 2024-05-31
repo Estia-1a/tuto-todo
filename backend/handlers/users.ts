@@ -21,55 +21,33 @@ export const createUser = async (userData: any) => {
 };
 
 // Handler to add user in database if not exists (GET)
-export const getUserId = async (ctx: any) => {
-  const login = ctx.params.login;
-  if (login !== undefined) {
-    if (typeof login === 'string' && login.length > 0)  {
+export const getUserData = async (ctx: any) => {
+  const id = ctx.params.id;
+
+  // Vérifier que l'ID est défini et qu'il s'agit d'un nombre valide
+  if (id !== undefined) {
+    const userId = parseInt(id, 10);  // Convertir l'ID en nombre
+    if (!isNaN(userId) && userId > 0) {
       try {
+        // Exécuter la requête pour récupérer les données de l'utilisateur
         const result = await client.query(
-          `SELECT id FROM db_todos.github WHERE login = ?`,
-          [login],
+          `SELECT * FROM db_todos.github WHERE id = ?`,
+          [userId],
+          
         );
-        if (result.length > 0) {
-          const user_id = result[0];
-          ctx.response.status = 201;
-          ctx.response.body = {
-            success: true,
-            data: user_id,
-            message: "User Id recovered",
-          };
-          return;
-        } else {
-          ctx.response.status = 404;
-          ctx.response.body = {
-            success: false,
-            message: "User Id not found",
-          };
-          return;
-        }
-      } catch (error) {
-        console.error(error);
+        ctx.response.status = 200;
+        ctx.response.body = result;
+      } catch (_error) {
+        console.error("Database query error:", _error);
         ctx.response.status = 500;
-        ctx.response.body = {
-          success: false,
-          message: "Internal Server Error",
-        };
-        return;
+        ctx.response.body = { error: "Internal Server Error" };
       }
     } else {
       ctx.response.status = 400;
-      ctx.response.body = {
-        success: false,
-        message: "Invalid login parameter",
-      };
-      return;
+      ctx.response.body = { error: "Invalid user ID" };
     }
   } else {
     ctx.response.status = 400;
-    ctx.response.body = {
-      success: false,
-      message: "Index parameter is missing",
-    };
-    return;
+    ctx.response.body = { error: "User ID is required" };
   }
 };

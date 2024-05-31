@@ -1,6 +1,6 @@
 import { Router } from "https://deno.land/x/oak@v6.5.0/mod.ts";
 import { addTodo, deleteTodo, getUserTodos, getTodos, updateTodo } from "../handlers/todos.ts";
-import { createUser, getUserId } from "../handlers/users.ts";
+import { createUser, getUserData } from "../handlers/users.ts";
 import { redirectToGitHubLogin, handleGitHubCallback } from "../handlers/github.ts";
 
 const router = new Router();
@@ -14,7 +14,7 @@ router.delete("/todos/:index", deleteTodo);
 
 // Define routes for user
 router.post("/user/register", createUser);
-router.get("/user/:login",getUserId)
+router.get("/user/:id",getUserData)
 
 // Define routes for GitHub OAuth
 router.get("/auth/github", redirectToGitHubLogin);
