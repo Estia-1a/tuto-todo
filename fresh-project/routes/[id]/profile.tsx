@@ -1,26 +1,26 @@
 /** @jsxImportSource preact */
 import { Handlers, PageProps } from "$fresh/server.ts";
-import client from "../../../backend/database/database.ts";
 
 export const handler: Handlers = {
   async GET(req, ctx) {
     const { id } = ctx.params;
 
-    // Convertir l'id en nombre
     const userId = parseInt(id, 10);
     if (isNaN(userId)) {
       return new Response("Invalid user ID", { status: 400 });
     }
-
-    // Récupérer les informations de l'utilisateur depuis la base de données
-    const result = await client.execute("SELECT * FROM github WHERE id = ?", [userId]);
-    const userData = result.rows && result.rows.length > 0 ? result.rows[0] : null;
-
-    if (!userData) {
-      return new Response("User not found", { status: 404 });
+    try {
+      const resp = await fetch(`http://localhost:3000/user/${userId}`);
+      if (!resp.ok) {
+        console.error("Failed to fetch user:", resp.statusText);
+        return new Response("User not found", { status: 404 });
+      }
+      const userData = await resp.json();
+      return ctx.render(userData[0]);
+    } catch (error) {
+      console.error("Error fetching user data:", error);
+      return new Response("Internal Server Error", { status: 500 });
     }
-
-    return ctx.render(userData);
   },
 };
 
