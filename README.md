@@ -17,38 +17,19 @@ This project is a Todo List testing application developed with [Deno](https://de
 - **fresh-project/**: Contains the Fresh user interface files.
 
 ## Prerequisites
-- Access to a local or remote MySQL database: [MySQL Installation Guide](https://www.javatpoint.com/how-to-install-mysql)
+* Git: [Download and install Git](https://git-scm.com/downloads)
+* Deno: [Download and install Deno](https://docs.deno.com/runtime/manual/getting_started/installation)
+* Database Server: [Ensure you have a database server (e.g., MySQL) running](https://www.javatpoint.com/how-to-install-mysql).
 
-## Installation and Use
-1. Clone this repository on your machine:
-#### `git clone https://github.com/Estia-1a/tuto-todo.git`
-2. Navigate to the project directory:
-#### `cd tuto-todo`
-3. Configure the environment variables in the `.env` files:
-- **/.env**:
-```
-# Database connection information
-DB_HOSTNAME=127.0.0.1
-DB_USERNAME=root
-DB_PASSWORD=root
-DB_NAME=database
+## Installation & Configuration
+For detailed installation and configuration instructions, please refer to the [Installation & Configuration Guide](https://github.com/Estia-1a/tuto-todo/wiki/Installation-&-Configuration-Guide) on the wiki.
 
-# GitHub Auth Clerk Application information
-GITHUB_CLIENT_ID=0000
-GITHUB_CLIENT_SECRET=0000
-```
-- **/fresh-projet/.env**:
-```
-# GitHub Auth Clerk Application information
-GITHUB_CLIENT_ID=0000
-GITHUB_CLIENT_SECRET=0000
-```
-4. Install Deno API dependencies:
-#### `deno cache --unstable --reload --lock=lock.json --lock-write backend/server.ts`
-5. Launch the Todo List API by running the server.ts file:
+## Quick Start
+1. Launch your database server
+2. Launch the Todo List API by running the server.ts file:
 #### `deno run --allow-net --allow-read --allow-env backend/server.ts`
-6. Navigate to the Fresh directory:
+3. Navigate to the Fresh directory:
 #### `cd fresh-project`
-7. Launch Fresh:
+4. Launch Fresh:
 #### `deno task start`
-8. Visit **http://localhost:8000** and $\color{#D29922}\textsf{✨magiiic✨}$.
+5. Visit **http://localhost:8000** and $\color{#D29922}\textsf{✨magiiic✨}$.
